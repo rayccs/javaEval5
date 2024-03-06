@@ -1,0 +1,24 @@
+CREATE DATABASE IF NOT EXISTS db_nombre;
+
+USE db_nombre;
+
+CREATE TABLE IF NOT EXISTS usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    ultimo_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    token VARCHAR(255),
+    is_activo BOOLEAN DEFAULT true
+);
+
+CREATE TABLE IF NOT EXISTS telefono (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    numero VARCHAR(20) NOT NULL,
+    codigo_ciudad VARCHAR(10),
+    codigo_pais VARCHAR(10),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+);
